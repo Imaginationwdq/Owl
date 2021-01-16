@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+        
+  <context:property-placeholder location="classpath:db.properties"/>
+ 
+<!-- druid数据连接池配置 -->
+<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource	">
+    <property name="driverClassName" value="${driverClassName}"></property>
+    <property name="url" value="${url}"></property>
+    <property name="username" value="${username1}"></property>
+    <property name="password" value="${password}"></property>
+    <property name="maxActive" value="${maxActive}"></property>
+    <property name="initialSize" value="${initialSize}"></property>
+    <property name="maxWait" value="${maxWait}"></property>	
+</bean> 
+<!--  事务管理器,依赖于dataSource -->
+   <bean id="trasactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+      <property name="dataSource" ref="dataSource"></property>
+   </bean>
+      
+   <!--开启事务注解 使用注解自动扫描 -->
+   <tx:annotation-driven transaction-manager="trasactionManager"/>
+    <!-- 设置mybatis工厂 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+          <property name="dataSource" ref="dataSource"></property>
+          <!-- 指定Mybatis的设置文件 -->
+          <property name="configLocation" value="classpath:Mybatis-config.xml"></property>
+    </bean>
+   <!-- 注册Dao的实现类 -->
+<!--     <bean id="productDao" class="cn.edu.huel.dao.ProductImpl">
+      <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+   </bean>   -->
+   
+   <!-- 注册Mapper接口代理类 -->
+<!--    <bean id="productMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+       <property name="mapperInterface" value="cn.edu.huel.mapper.ProductMapper"></property>
+       <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+   </bean> -->
+   
+     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+       <property name="basePackage" value="cn.edu.huel.owl.mapper"></property>
+   </bean> 
+  <context:component-scan base-package="cn.edu.huel.owl.service"></context:component-scan>
+</beans>
