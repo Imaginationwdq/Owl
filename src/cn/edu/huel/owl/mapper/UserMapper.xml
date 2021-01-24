@@ -14,4 +14,23 @@
     select * from users;
   </select>
 
+  <insert id="registerIn" parameterType="cn.edu.huel.owl.po.Users">
+    insert into users (user_id, username, password,
+      status, classes,name,age)
+    values (#{user_id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+      #{classes,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},#{age,jdbcType=INTEGER})
+  </insert>
+  <select id="findUserByUserName" parameterType="java.lang.String" resultType="cn.edu.huel.owl.po.Users">
+    select *
+    from users
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+  <select id="loginIn" parameterType="java.lang.String" resultType="cn.edu.huel.owl.po.Users">
+    select *
+    from users
+    where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+  </select>
+
+
+
 </mapper>

@@ -11,9 +11,20 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>首页</title>
+
+
+    <script language="javascript" type="text/javascript">
+        function game()
+        {
+            window.location.href="${pageContext.request.contextPath}/Users/game";
+        }
+    </script>
 </head>
 
 <body>
-    <a href="${pageContext.request.contextPath}/Users/login">登录</a>
+    ${alert}
+    <a href="${pageContext.request.contextPath}/Users/login">注销</a>
+
+
 </body>
 </html>

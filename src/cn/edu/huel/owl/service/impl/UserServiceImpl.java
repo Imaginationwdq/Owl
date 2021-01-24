@@ -23,4 +23,41 @@ public class UserServiceImpl implements UserService {
 		List<Users> users = userMapper.getUserList();
 		return users;
 	}
+
+	/**
+	 *  注册
+	 * @param user
+	 * @return
+	 */
+	@Override
+	public int registerIn(Users user) {
+		int flag = userMapper.registerIn(user);
+		return flag;
+	}
+
+	/**
+	 *  注册验证
+	 * @param user
+	 * @return
+	 */
+	@Override
+	public Users findByUserName(Users user) {
+		Users users = userMapper.findUserByUserName(user.getUsername());
+		return users;
+	}
+
+	/**
+	 * 登录验证
+	 * @param users
+	 * @return
+	 */
+	@Override
+	public boolean loginIn(Users users) {
+		Users user = userMapper.loginIn(users.getUsername(),users.getPassword());
+		if (user!=null){
+			return true;
+		}
+		else
+		return false;
+	}
 }

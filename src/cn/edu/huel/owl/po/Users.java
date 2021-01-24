@@ -7,7 +7,7 @@ package cn.edu.huel.owl.po;
  */
 public class Users {
 
-    private Integer userId;
+    private Integer user_id;
     private String username;
     private String password;
     private String status;
@@ -15,8 +15,8 @@ public class Users {
     private String name;
     private Integer age;
 
-    public Users(Integer userId, String username, String password, String status, String classes, String name, Integer age) {
-        this.userId = userId;
+    public Users(Integer user_id, String username, String password, String status, String classes, String name, Integer age) {
+        this.user_id = user_id;
         this.username = username;
         this.password = password;
         this.status = status;
@@ -26,11 +26,11 @@ public class Users {
     }
 
     public Integer getUserId() {
-        return userId;
+        return user_id;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserId(Integer user_id) {
+        this.user_id = user_id;
     }
 
     public String getUsername() {
